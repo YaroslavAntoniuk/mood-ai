@@ -8,7 +8,7 @@ export default function Home() {
 
       <div className="w-full flex justify-center items-center">
         <Link href="/journal">
-          <button className="bg-black px-6 py-4 rounded-lg text-xl shadow-[0_0_50px_1px_#48abe0]">Get Started</button>
+          <button className="bg-black px-6 py-4 rounded-lg text-xl shadow-[0_0_40px_1px_#48abe0]">Get Started</button>
         </Link>
       </div>
     </div>
