@@ -3,6 +3,7 @@ import NewJournalEntry from "@/components/NewJournalEntry";
 import { getUserByClerkId } from "@/utils/auth";
 import { prisma } from "@/utils/db";
 import { JournalEntry } from "@prisma/client";
+import Link from "next/link";
 
 const getJournalEntries = async (): Promise<JournalEntry[]> => {
   const user = await getUserByClerkId({});
@@ -27,7 +28,9 @@ const Journal = async () => {
       <div className="grid grid-cols-3 gap-4">
         <NewJournalEntry />
         {journalEntries.map((journalEntry) => (
-          <JournalEntryCard key={journalEntry.id} journalEntry={journalEntry} />
+          <Link href={`/journal/${journalEntry.id}`} key={journalEntry.id}>
+            <JournalEntryCard journalEntry={journalEntry} />
+          </Link>
         ))}
       </div>
     </div>
