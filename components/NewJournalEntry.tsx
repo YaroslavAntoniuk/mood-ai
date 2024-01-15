@@ -2,11 +2,20 @@
 
 import { createNewJournalEntry } from "@/utils/api";
 import { useRouter } from "next/navigation";
+import { isErrorUI } from "@/utils/types";
+import { toast } from "react-toastify";
 
 const NewJournalEntry = () => {
   const router = useRouter();
   const handleAddJournalEntry = async () => {
+
     const data = await createNewJournalEntry('');
+
+    if (isErrorUI(data)) {
+      'use server'
+      toast.error(data.message);
+      return;
+    }
 
     router.push(`/journal/${data.id}`)
   }
