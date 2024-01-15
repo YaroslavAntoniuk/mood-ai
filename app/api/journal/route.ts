@@ -1,5 +1,6 @@
 import { getUserByClerkId } from '@/utils/auth'
 import { prisma } from '@/utils/db'
+import { createAnalysis } from '@/utils/services/analysis.service'
 import { NextResponseWrapper } from '@/utils/response-wrapper'
 import { revalidatePath } from 'next/cache'
 
@@ -11,6 +12,8 @@ export const POST = async () => {
       content: 'Hello World!',
     },
   })
+
+  await createAnalysis(journalEntry)
 
   revalidatePath('/journal')
 
