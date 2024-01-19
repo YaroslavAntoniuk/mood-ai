@@ -1,3 +1,5 @@
+import { Analysis, JournalEntry } from '@prisma/client'
+
 export type ResponseWrapper<T> = { data: T }
 
 export interface Params {
@@ -16,6 +18,12 @@ export interface AnalysisDTO {
   negative: boolean
   subject: string
 }
+
+export interface withAnalysis {
+  analysis: Analysis | null
+}
+
+export interface CreatedJournalEntry extends JournalEntry, withAnalysis {}
 
 export const isErrorUI = (data: any): data is ErrorUI => {
   return 'error' in data
