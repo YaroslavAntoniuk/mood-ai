@@ -1,6 +1,6 @@
 import { getUserByClerkId } from '@/utils/auth'
 import { prisma } from '@/utils/db'
-import { createAnalysis } from '@/utils/services/analysis.service'
+import { upsertAnalysis } from '@/utils/services/analysis.service'
 import { NextResponseWrapper } from '@/utils/response-wrapper'
 import { revalidatePath } from 'next/cache'
 
@@ -13,7 +13,7 @@ export const POST = async () => {
     },
   })
 
-  await createAnalysis(journalEntry)
+  await upsertAnalysis(journalEntry)
 
   revalidatePath('/journal')
 
