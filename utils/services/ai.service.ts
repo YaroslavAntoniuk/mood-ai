@@ -62,7 +62,7 @@ const getPrompt = async (content: string) => {
   const format_instructions = parser.getFormatInstructions()
   const prompt = new PromptTemplate({
     template:
-      'Analyze the following journal entry. All fields are required. Do not leave them blank. If you cannot define the value use neutral tone. Follow the instructions and format your response to match the format instructions, no matter what! \n{format_instructions}\n{entry}',
+      'Analyze the following journal entry. All fields are required. Do not leave them blank even it has a default values. It always should be values. If you cannot define the value use neutral tone. Follow the instructions and format your response to match the format instructions, no matter what! \n{format_instructions}\n{entry}',
     inputVariables: ['entry'],
     partialVariables: { format_instructions },
   })
