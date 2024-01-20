@@ -5,7 +5,7 @@ import { analyze } from './ai.service'
 export const upsertAnalysis = async (journalEntry: JournalEntry) => {
   const analysis = await analyze(journalEntry.content)
 
-  await prisma.analysis.upsert({
+  return await prisma.analysis.upsert({
     where: {
       journalId: journalEntry.id,
     },
