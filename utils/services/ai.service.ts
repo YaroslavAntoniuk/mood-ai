@@ -9,7 +9,7 @@ const parser = StructuredOutputParser.fromZodSchema(
     mood: zod
       .string()
       .describe(
-        `The mood of the person who wrote the journal entry. Should be connected with the color. Examples:
+        `Required field should always have a value.The mood of the person who wrote the journal entry. Should be connected with the color. Examples:
           passion, love, excitement, anger, danger
           joy, enthusiasm, creativity, warmth
           happiness, optimism, hope, energy
@@ -21,22 +21,23 @@ const parser = StructuredOutputParser.fromZodSchema(
           purity, innocence, cleanliness, simplicity
         `
       )
-      .min(1)
-      .default(''),
+      .default('neutral'),
     subject: zod
       .string()
-      .describe('The subject of the journal entry')
-      .min(1)
-      .default(''),
+      .describe(
+        'Required field should always have a value. The subject of the journal entry'
+      )
+      .default('Unknown'),
     summary: zod
       .string()
-      .describe('Quick summary of the entire journal entry')
-      .min(1)
-      .default(''),
+      .describe(
+        'Required field should always have a value. Quick summary of the entire journal entry'
+      )
+      .default('Unknown'),
     color: zod
       .string()
       .describe(
-        `A hexadecimal color representing the mood of the journal entry, you can usee one or more moods at one time. Example:
+        `Required field should always have a value. A hexadecimal color representing the mood of the journal entry, you can usee one or more moods at one time. Example:
         #FF0000: passion, love, excitement, anger, danger
         #FFA500: joy, enthusiasm, creativity, warmth
         #FFFF00: happiness, optimism, hope, energy
@@ -47,12 +48,11 @@ const parser = StructuredOutputParser.fromZodSchema(
         #000000: sophistication, elegance, mystery, death
         #FFFFFF: purity, innocence, cleanliness, simplicity`
       )
-      .min(1)
       .default('#ffffff'),
     negative: zod
       .boolean()
       .describe(
-        'Whether the journal entry is negative or not(i.e does it contain negative emotions?)'
+        'Required field should always have a value. Whether the journal entry is negative or not(i.e does it contain negative emotions?)'
       )
       .default(false),
   })
