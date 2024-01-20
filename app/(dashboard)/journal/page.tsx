@@ -2,10 +2,10 @@ import JournalEntryCard from "@/components/JournalEntryCard";
 import NewJournalEntry from "@/components/NewJournalEntry";
 import { getUserByClerkId } from "@/utils/auth";
 import { prisma } from "@/utils/db";
-import { JournalEntry } from "@prisma/client";
+import { FullJournalEntry } from "@/utils/types";
 import Link from "next/link";
 
-const getJournalEntries = async (): Promise<JournalEntry[]> => {
+const getJournalEntries = async (): Promise<FullJournalEntry[]> => {
   const user = await getUserByClerkId({});
   const entries = await prisma.journalEntry.findMany({
     where: {
@@ -13,6 +13,9 @@ const getJournalEntries = async (): Promise<JournalEntry[]> => {
     },
     orderBy: {
       createdAt: 'desc'
+    },
+    include: {
+      analysis: true
     }
   });
 
