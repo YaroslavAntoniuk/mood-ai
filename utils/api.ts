@@ -1,5 +1,5 @@
 import { JournalEntry } from '@prisma/client'
-import { ErrorUI, ResponseWrapper } from './types'
+import { ErrorUI, FullJournalEntry, ResponseWrapper } from './types'
 
 const createUrl = (path: string) => {
   return `${window.location.origin}${path}`
@@ -28,7 +28,7 @@ export const createNewJournalEntry = async (
 export const updateJournalEntry = async (
   id: string,
   content: string
-): Promise<JournalEntry | ErrorUI> => {
+): Promise<FullJournalEntry | ErrorUI> => {
   const response = await fetch(new Request(createUrl(`/api/journal/${id}`)), {
     method: 'PUT',
     headers: {
@@ -41,7 +41,7 @@ export const updateJournalEntry = async (
     return { error: true, message: 'Error updating journal entry' }
   }
 
-  const data: ResponseWrapper<JournalEntry> = await response.json()
+  const data: ResponseWrapper<FullJournalEntry> = await response.json()
 
   return data.data
 }

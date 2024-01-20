@@ -23,7 +23,7 @@ export interface withAnalysis {
   analysis: Analysis | null
 }
 
-export interface CreatedJournalEntry extends JournalEntry, withAnalysis {}
+export interface FullJournalEntry extends JournalEntry, withAnalysis {}
 
 export const isErrorUI = (data: any): data is ErrorUI => {
   return 'error' in data
