@@ -1,10 +1,8 @@
 import { getUserByClerkId } from '@/utils/auth'
 import { prisma } from '@/utils/db'
-import { upsertAnalysis } from '@/utils/services/analysis.service'
 import { NextResponseWrapper } from '@/utils/response-wrapper'
-import { Params } from '@/utils/types'
-import { JournalEntry } from '@prisma/client'
-import { revalidatePath } from 'next/cache'
+import { upsertAnalysis } from '@/utils/services/analysis.service'
+import { FullJournalEntry, Params } from '@/utils/types'
 
 export const PUT = async (req: Request, context: { params: Params }) => {
   const { content } = await req.json()
@@ -20,11 +18,15 @@ export const PUT = async (req: Request, context: { params: Params }) => {
     data: {
       content,
     },
+    include: {
+      analysis: true,
+    },
   })
 
-  await upsertAnalysis(updatedJournalEntry)
+  const analysis = await upsertAnalysis(updatedJournalEntry)
 
-  revalidatePath(`/journal/${updatedJournalEntry.id}`, 'page')
-
-  return NextResponseWrapper<JournalEntry>(updatedJournalEntry)
+  return NextResponseWrapper<FullJournalEntry>({
+    ...updatedJournalEntry,
+    analysis,
+  })
 }
