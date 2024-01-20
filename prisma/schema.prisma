@@ -45,7 +45,7 @@ model Analysis {
   updatedAt DateTime @updatedAt
 
   journalId String
-  journal   JournalEntry @relation(fields: [journalId], references: [id])
+  journal   JournalEntry @relation(fields: [journalId], references: [id], onDelete: Cascade)
 
   mood     String
   summary  String  @db.Text
