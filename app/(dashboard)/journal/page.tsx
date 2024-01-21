@@ -1,5 +1,6 @@
 import JournalEntryCard from "@/components/JournalEntryCard";
 import NewJournalEntry from "@/components/NewJournalEntry";
+import QuestionBar from "@/components/QuestionBar";
 import { getUserByClerkId } from "@/utils/auth";
 import { prisma } from "@/utils/db";
 import { FullJournalEntry } from "@/utils/types";
@@ -28,6 +29,9 @@ const Journal = async () => {
   return (
     <div className="p-8 bg-slate-200/100 h-full">
       <h1 className="text-3xl mb-8">Journal</h1>
+      <div className="my-8">
+        <QuestionBar />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         <NewJournalEntry />
         {journalEntries.map((journalEntry) => (
