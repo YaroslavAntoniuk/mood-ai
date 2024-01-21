@@ -1,30 +1,31 @@
+import LinksList from '@/components/LinksList';
 import { UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
-  return <div className='grid grid-rows-[60px_1fr] grid-cols-1 lg:grid-cols-[200px_1fr] sm: w-screen h-screen relative'>
-    <aside className='row-span-3 border-r border-black/10 hidden lg:block'>
-      <div className='flex items-center justify-center w-full h-[60px]'>
-        <Link href='/journal'>
-          <h1 className='text-2xl'>Mood AI</h1>
+  return (
+    <div className="grid grid-rows-[60px_1fr] grid-cols-1 lg:grid-cols-[200px_1fr] sm:w-screen h-screen relative">
+      <aside className="col-span-1 row-span-2 border-r border-black/10 hidden lg:block">
+        <Link href="/journal" className='flex items-center justify-center p-6 h-[60px]'>
+          <h1 className="text-2xl">Mood AI</h1>
         </Link>
-      </div>
-    </aside>
+        <LinksList />
+      </aside>
 
-    <div className='border-b border-black/10'>
-      <header className='flex justify-between items-center flex-row w-full h-full'>
-        <Link href='/journal' className='lg:hidden w-fit whitespace-nowrap px-6'>
-          <h1 className='text-2xl'>Mood AI</h1>
+      <header className="col-span-1 border-b border-black/10 flex justify-between items-center p-4">
+        <Link href="/journal" className='flex lg:hidden items-center justify-center h-[60px] border-b'>
+          <h1 className="text-2xl">Mood AI</h1>
         </Link>
-        <div className='h-full w-full px-6 flex items-center justify-end'>
-          <UserButton />
-        </div>
+        <LinksList className="flex lg:hidden flex-row gap-4 ml-4" />
+        <div className='flex lg:w-full lg:items-center lg:justify-end'><UserButton /></div>
       </header>
-    </div>
 
-    <div>{children}</div>
-  </div>
+      <main className="col-span-1 row-span-2 overflow-y-auto">
+        {children}
+      </main>
+    </div>
+  )
 }
 
 export default DashboardLayout;
