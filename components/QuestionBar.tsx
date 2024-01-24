@@ -30,9 +30,14 @@ const QuestionBar = () => {
 
   return (
     <div>
-      <form className="flex gap-6" onSubmit={handleSubmit}>
-        <input disabled={loading} type="text" value={question} onChange={onChangeQuestion} placeholder="Ask a question" className="w-[50%] h-12 px-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500" />
-        <button disabled={loading} className="bg-blue-400 text-white px-8 py-2 rounded-lg text-xl">Ask</button>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label htmlFor="question" className="text-lg">You can ask a question about any of your entries</label>
+        </div>
+        <div className="flex gap-6">
+          <input id="question" disabled={loading} type="text" value={question} onChange={onChangeQuestion} placeholder="Ask a question" className="w-[50%] h-12 px-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500" />
+          <button disabled={loading} className="bg-blue-400 text-white px-8 py-2 rounded-lg text-xl">Ask</button>
+        </div>
       </form>
       {loading && <div className="absolute top-0 left-0 w-full h-full bg-white/50 flex justify-center items-center">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
