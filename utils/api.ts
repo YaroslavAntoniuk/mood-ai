@@ -45,3 +45,23 @@ export const updateJournalEntry = async (
 
   return data.data
 }
+
+export const askQuestion = async (
+  question: string
+): Promise<string | ErrorUI> => {
+  const response = await fetch(new Request(createUrl('/api/question')), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ question }),
+  })
+
+  if (!response.ok) {
+    return { error: true, message: 'Error asking question' }
+  }
+
+  const data = await response.json()
+
+  return data.data
+}
