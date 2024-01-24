@@ -25,6 +25,14 @@ export interface withAnalysis {
 
 export interface FullJournalEntry extends JournalEntry, withAnalysis {}
 
+export interface JournalQAEntry {
+  id: string
+  content: string
+  createdAt: Date
+}
+
 export const isErrorUI = (data: any): data is ErrorUI => {
+  if (typeof data === 'string') return false
+
   return 'error' in data
 }
