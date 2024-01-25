@@ -11,6 +11,7 @@ export const upsertAnalysis = async (journalEntry: JournalEntry) => {
     },
     create: {
       journalId: journalEntry.id,
+      userId: journalEntry.userId,
       ...analysis,
     },
     update: analysis,
