@@ -1,8 +1,9 @@
 import Link from "next/link";
 
 const links = [
-  { href: '/journal', label: 'Journal' },
   { href: '/', label: 'Home' },
+  { href: '/journal', label: 'Journal' },
+  { href: '/history', label: 'History' },
 ];
 
 const LinksList = ({ className = 'flex flex-col' }) => {
