@@ -21,7 +21,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
         <div className='flex lg:w-full lg:items-center lg:justify-end'><UserButton /></div>
       </header>
 
-      <main className="col-span-1 row-span-2 overflow-y-auto">
+      <main className="col-span-1 bg-slate-200/100 row-span-2 overflow-y-auto">
         {children}
       </main>
     </div>

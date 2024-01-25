@@ -27,7 +27,7 @@ const Journal = async () => {
   const journalEntries = await getJournalEntries();
 
   return (
-    <div className="p-8 bg-slate-200/100 h-full">
+    <div className="p-8 h-full">
       <h1 className="text-3xl mb-8">Journal</h1>
       <div className="my-8">
         <QuestionBar />
