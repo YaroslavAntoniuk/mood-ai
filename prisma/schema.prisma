@@ -22,6 +22,7 @@ model User {
   deletedAt DateTime?
 
   journals JournalEntry[]
+  analysis Analysis[]
 }
 
 model JournalEntry {
@@ -47,11 +48,16 @@ model Analysis {
   journalId String
   journal   JournalEntry @relation(fields: [journalId], references: [id], onDelete: Cascade)
 
-  mood     String
-  summary  String  @db.Text
-  color    String
-  negative Boolean
-  subject  String
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  mood           String
+  summary        String  @db.Text
+  color          String
+  negative       Boolean
+  subject        String
+  sentimentScore Float   @default(0)
 
   @@unique([journalId])
+  @@index([userId])
 }
