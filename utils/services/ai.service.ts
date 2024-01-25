@@ -9,6 +9,12 @@ import { AnalysisDTO, JournalQAEntry } from '../types'
 
 const parser = StructuredOutputParser.fromZodSchema(
   zod.object({
+    sentimentScore: zod
+      .number()
+      .describe(
+        'Required field should always have a value. Sentiment of the text and rated on a scale from -10 to 10, where -10 is extremely negative, 0 is neutral, and 10 is extremely positive.'
+      )
+      .default(0),
     mood: zod
       .string()
       .describe(
@@ -29,14 +35,12 @@ const parser = StructuredOutputParser.fromZodSchema(
       .string()
       .describe(
         'Required field should always have a value. The subject of the journal entry'
-      )
-      .default('Unknown'),
+      ),
     summary: zod
       .string()
       .describe(
         'Required field should always have a value. Quick summary of the entire journal entry'
-      )
-      .default('Unknown'),
+      ),
     color: zod
       .string()
       .describe(
@@ -56,8 +60,7 @@ const parser = StructuredOutputParser.fromZodSchema(
       .boolean()
       .describe(
         'Required field should always have a value. Whether the journal entry is negative or not(i.e does it contain negative emotions?)'
-      )
-      .default(false),
+      ),
   })
 )
 
@@ -65,7 +68,7 @@ const getPrompt = async (content: string) => {
   const format_instructions = parser.getFormatInstructions()
   const prompt = new PromptTemplate({
     template:
-      'Analyze the following journal entry. All fields are required. Do not leave them blank even it has a default values. It always should be values. If you cannot define the value use neutral tone. Follow the instructions and format your response to match the format instructions, no matter what! \n{format_instructions}\n{entry}',
+      'Analyze the following journal entry. All fields are REQUIRED. Do NOT leave them blank even it has a default values. It always should be values. If you cannot define the value use neutral tone. Follow the instructions and format your response to match the format instructions, no matter what! \n{format_instructions}\n{entry}',
     inputVariables: ['entry'],
     partialVariables: { format_instructions },
   })
