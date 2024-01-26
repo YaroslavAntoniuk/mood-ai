@@ -22,7 +22,7 @@ const QuestionBar = () => {
     const answer = await askQuestion(question);
 
     if (isErrorUI(answer)) {
-      setAnswer('Sorry, I could not answer your question');
+      setAnswer('Sorry, I cannot answer your question');
     } else {
       setAnswer(answer);
     }
@@ -39,7 +39,7 @@ const QuestionBar = () => {
         </div>
         <div className="flex gap-6">
           <input id="question" disabled={loading} type="text" value={question} onChange={onChangeQuestion} placeholder="Ask a question" className="w-[50%] h-12 px-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500" />
-          <button disabled={loading} className="bg-blue-400 text-white px-8 py-2 rounded-lg text-xl">Ask</button>
+          <button disabled={loading} className="bg-blue-400 text-white px-6 lg:px-8 lg:py-2 rounded-lg text-md lg:text-xl">Ask</button>
         </div>
       </form>
       {loading && <div className="absolute top-0 left-0 w-full h-full bg-white/50 flex justify-center items-center">
