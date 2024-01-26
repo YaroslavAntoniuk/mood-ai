@@ -24,8 +24,17 @@ const getAnalysis = async () => {
 
 const History = async () => {
   const { analyses, avgAnalysis } = await getAnalysis();
+
+  if (!analyses.length) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <h1>No data to display.</h1>
+      </div>
+    )
+  }
+
   return (
-    <div className="flex items-center justify-center w-full h-full">
+    <div className="flex flex-col gap-10 items-center justify-center w-full h-full">
       <div>{`Avg. Sentiment ${avgAnalysis}`}</div>
       <div className="w-5/6 h-2/6">
         <HistoryChart data={analyses} />
