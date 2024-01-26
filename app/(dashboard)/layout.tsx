@@ -15,9 +15,9 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
 
       <header className="col-span-1 border-b border-black/10 flex justify-between items-center p-4">
         <Link href="/journal" className='flex lg:hidden items-center justify-center h-[60px] border-b'>
-          <h1 className="text-2xl">Mood AI</h1>
+          <h1 className="text-lg text-nowrap">Mood AI</h1>
         </Link>
-        <LinksList className="flex lg:hidden flex-row gap-4 ml-4" />
+        <LinksList className="flex lg:hidden flex-row gap-2 ml-4" />
         <div className='flex lg:w-full lg:items-center lg:justify-end'><UserButton /></div>
       </header>
 
