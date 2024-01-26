@@ -11,7 +11,7 @@ const LinksList = ({ className = 'flex flex-col' }) => {
     {links.map(({ href, label }) => (
       <li key={`${href}${label}`} className='w-full h-[60px] flex items-center justify-center'>
         <Link href={href}>
-          <span className='text-xl'>{label}</span>
+          <span className='text-md lg:text-xl'>{label}</span>
         </Link>
       </li>
     ))}
