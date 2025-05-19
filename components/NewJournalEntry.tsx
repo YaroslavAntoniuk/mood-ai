@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import { isErrorUI } from "@/utils/types";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import { useAIUsage } from "@/context/AIUsageContext";
 
 const NewJournalEntry = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const { updateUsage } = useAIUsage();
 
   const handleAddJournalEntry = async () => {
     setIsLoading(true);
@@ -17,11 +19,12 @@ const NewJournalEntry = () => {
 
       if (isErrorUI(data)) {
         toast.error(data.message);
+        setIsLoading(false);
         return;
       }
 
-      router.push(`/journal/${data.id}`);
-      router.refresh();
+      router.push(`/journal/${data.journalEntry.id}`);
+      updateUsage(data.usageCount);
     } catch (error) {
       toast.error('Failed to create journal entry');
     } finally {

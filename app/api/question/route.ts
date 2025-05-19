@@ -8,6 +8,7 @@ export const POST = async (request: Request) => {
   const { question } = await request.json()
   const user = await getUserByClerkId()
 
+  const isOutOfCredits = user.usageCount >= user.usageLimit
   const entries: JournalQAEntry[] = await prisma.journalEntry.findMany({
     where: {
       userId: user.id,
@@ -19,7 +20,20 @@ export const POST = async (request: Request) => {
     },
   })
 
-  const answer = await qa(question, entries)
+  const answer = await qa(question, entries, isOutOfCredits)
 
-  return NextResponseWrapper(answer)
+  if (!isOutOfCredits) {
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        usageCount: {
+          increment: 1,
+        },
+      },
+    })
+  }
+
+  return NextResponseWrapper({answer, usageCount: user.usageCount})
 }

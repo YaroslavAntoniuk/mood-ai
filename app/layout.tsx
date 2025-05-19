@@ -4,6 +4,7 @@ import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { AIUsageProvider } from '@/context/AIUsageContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,8 +22,10 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          {children}
-          <ToastContainer position="bottom-right" autoClose={5000} />
+          <AIUsageProvider>
+            {children}
+            <ToastContainer position="bottom-right" autoClose={5000} />
+          </AIUsageProvider>
         </body>
       </html>
     </ClerkProvider>

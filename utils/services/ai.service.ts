@@ -80,7 +80,21 @@ const getPrompt = async (content: string) => {
   return input
 }
 
-export const analyze = async (content: string): Promise<AnalysisDTO> => {
+const mockAnalysis = (): AnalysisDTO => {
+  return {
+    mood: 'neutral',
+    summary: 'neutral',
+    color: 'neutral',
+    negative: false,
+    subject: 'neutral',
+  }
+}
+
+export const analyze = async (content: string, isOutOfCredits: boolean = false): Promise<AnalysisDTO> => {
+  if (isOutOfCredits) {
+    return mockAnalysis();
+  }
+
   const prompt = await getPrompt(content)
   const model = new ChatOpenAI({
     temperature: 0,
@@ -99,7 +113,11 @@ export const analyze = async (content: string): Promise<AnalysisDTO> => {
   }
 }
 
-export const qa = async (question: string, entries: JournalQAEntry[]) => {
+export const qa = async (question: string, entries: JournalQAEntry[], isOutOfCredits: boolean = false) => {
+  if (isOutOfCredits) {
+    return 'You are out of credits. Please ask a developer to increase your limit.'
+  }
+
   const docs = entries.map(
     (entry) =>
       new Document({

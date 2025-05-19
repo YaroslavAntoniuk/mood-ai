@@ -4,7 +4,6 @@ import QuestionBar from "@/components/QuestionBar";
 import { getUserByClerkId } from "@/utils/auth";
 import { prisma } from "@/utils/db";
 import { FullJournalEntry } from "@/utils/types";
-import Link from "next/link";
 
 const getJournalEntries = async (): Promise<FullJournalEntry[]> => {
   const user = await getUserByClerkId({});
@@ -35,9 +34,7 @@ const Journal = async () => {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         <NewJournalEntry />
         {journalEntries.map((journalEntry) => (
-          <Link href={`/journal/${journalEntry.id}`} key={journalEntry.id}>
-            <JournalEntryCard journalEntry={journalEntry} />
-          </Link>
+          <JournalEntryCard key={journalEntry.id} journalEntry={journalEntry} />
         ))}
       </div>
     </div>

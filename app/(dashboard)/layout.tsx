@@ -1,4 +1,5 @@
 import LinksList from '@/components/LinksList';
+import { UsageBanner } from '@/components/UsageBanner';
 import { UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import { ReactNode } from 'react';
@@ -14,6 +15,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
       </aside>
 
       <header className="col-span-1 border-b border-black/10 flex justify-between items-center p-4">
+        <UsageBanner />
         <Link href="/journal" className='flex lg:hidden items-center justify-center h-[60px] border-b'>
           <h1 className="text-lg text-nowrap">Mood AI</h1>
         </Link>

@@ -21,6 +21,10 @@ model User {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
+  // AI usage
+  usageCount  Int      @default(0)
+  usageLimit  Int      @default(5)
+
   journals JournalEntry[]
   analysis Analysis[]
 }

@@ -7,7 +7,7 @@ const createUrl = (path: string) => {
 
 export const createNewJournalEntry = async (
   content: string
-): Promise<JournalEntry | ErrorUI> => {
+): Promise<{ journalEntry: JournalEntry, usageCount: number } | ErrorUI> => {
   const response = await fetch(new Request(createUrl('/api/journal')), {
     method: 'POST',
     headers: {
@@ -20,7 +20,7 @@ export const createNewJournalEntry = async (
     return { error: true, message: 'Error creating journal entry' }
   }
 
-  const data: ResponseWrapper<JournalEntry> = await response.json()
+  const data: ResponseWrapper<{ journalEntry: JournalEntry, usageCount: number }> = await response.json()
 
   return data.data
 }
@@ -28,7 +28,7 @@ export const createNewJournalEntry = async (
 export const updateJournalEntry = async (
   id: string,
   content: string
-): Promise<FullJournalEntry | ErrorUI> => {
+): Promise<FullJournalEntry & { usageCount: number } | ErrorUI> => {
   const response = await fetch(new Request(createUrl(`/api/journal/${id}`)), {
     method: 'PUT',
     headers: {
@@ -41,14 +41,14 @@ export const updateJournalEntry = async (
     return { error: true, message: 'Error updating journal entry' }
   }
 
-  const data: ResponseWrapper<FullJournalEntry> = await response.json()
+  const data: ResponseWrapper<FullJournalEntry & { usageCount: number }> = await response.json()
 
   return data.data
 }
 
 export const askQuestion = async (
   question: string
-): Promise<string | ErrorUI> => {
+): Promise<{ answer: string, usageCount: number } | ErrorUI> => {
   const response = await fetch(new Request(createUrl('/api/question')), {
     method: 'POST',
     headers: {

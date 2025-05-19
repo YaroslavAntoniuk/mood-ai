@@ -1,5 +1,6 @@
 'use client'
 
+import { useAIUsage } from "@/context/AIUsageContext";
 import { updateJournalEntry } from "@/utils/api";
 import { FullJournalEntry, isErrorUI } from "@/utils/types";
 import { useEffect, useState } from "react";
@@ -11,6 +12,7 @@ const JournalEntryEditor = ({ journalEntry }: { journalEntry: FullJournalEntry }
   const [showToast, setShowToast] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [analysis, setAnalysis] = useState(journalEntry.analysis);
+  const { updateUsage } = useAIUsage();
 
   const { mood, summary, color, subject, negative } = analysis || {};
   const analysisData = [
@@ -33,6 +35,8 @@ const JournalEntryEditor = ({ journalEntry }: { journalEntry: FullJournalEntry }
       return;
     }
 
+    updateUsage(updatedEntry.usageCount);
+
     setAnalysis(updatedEntry.analysis);
     setShowToast(true);
     setIsLoading(false);
@@ -54,6 +58,9 @@ const JournalEntryEditor = ({ journalEntry }: { journalEntry: FullJournalEntry }
   return (
     <div className="w-full h-full mt-4 grid grid-rows-2 lg:grid-cols-[2fr_1fr] gap-4">
       <div>
+        <div className="text-sm text-gray-600 mb-4">
+          <p>Note: If the usage count reaches the limit, AI analysis will not be performed on this journal entry.</p>
+        </div>
         {isLoading && <div className="absolute top-0 left-0 w-full h-full bg-white/50 flex justify-center items-center">
           <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
         </div>}

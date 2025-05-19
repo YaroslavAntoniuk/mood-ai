@@ -1,5 +1,6 @@
 'use client';
 
+import { useAIUsage } from "@/context/AIUsageContext";
 import { askQuestion } from "@/utils/api";
 import { isErrorUI } from "@/utils/types";
 import { useState } from "react";
@@ -9,6 +10,7 @@ const QuestionBar = () => {
   const [savedQuestion, setSavedQuestion] = useState('');
   const [loading, setLoading] = useState(false);
   const [answer, setAnswer] = useState('');
+  const { updateUsage } = useAIUsage();
 
   const onChangeQuestion = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuestion(e.target.value)
@@ -19,12 +21,13 @@ const QuestionBar = () => {
     e.preventDefault();
     setLoading(true);
 
-    const answer = await askQuestion(question);
-
-    if (isErrorUI(answer)) {
+    const result = await askQuestion(question);
+    console.log(result);
+    if (isErrorUI(result)) {
       setAnswer('Sorry, I cannot answer your question');
     } else {
-      setAnswer(answer);
+      setAnswer(result.answer);
+      updateUsage(result.usageCount);
     }
 
     setQuestion('');
