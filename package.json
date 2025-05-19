@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.2",
+    "@heroicons/react": "^2.2.0",
     "@langchain/core": "^0.3.56",
     "@langchain/openai": "^0.5.10",
     "@prisma/client": "^6.8.2",
