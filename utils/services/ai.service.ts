@@ -109,7 +109,7 @@ export const qa = async (question: string, entries: JournalQAEntry[]) => {
   )
 
   const model = new ChatOpenAI({ temperature: 0, modelName: 'gpt-3.5-turbo' })
-  const chain = loadQARefineChain(model)
+  const chain = loadQARefineChain(model as any)
   const embeddings = new OpenAIEmbeddings()
   const store = await MemoryVectorStore.fromDocuments(docs, embeddings)
   const relevantDocs = await store.similaritySearch(question)
