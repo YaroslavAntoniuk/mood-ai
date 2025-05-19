@@ -2,6 +2,7 @@ import JournalEntryEditor from "@/components/JournalEntryEditor";
 import { getUserByClerkId } from "@/utils/auth";
 import { prisma } from "@/utils/db";
 import { FullJournalEntry, Params } from "@/utils/types";
+import { redirect } from "next/navigation";
 
 const getJournalEntry = async (id: string): Promise<FullJournalEntry> => {
   const user = await getUserByClerkId();
@@ -17,7 +18,9 @@ const getJournalEntry = async (id: string): Promise<FullJournalEntry> => {
     }
   });
 
-  if (!journalEntry) throw new Error("Journal entry not found");
+  if (!journalEntry) {
+    redirect('/journal');
+  }
 
   return journalEntry;
 }

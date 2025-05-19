@@ -65,3 +65,16 @@ export const askQuestion = async (
 
   return data.data
 }
+
+export const deleteJournalEntry = async (id: string): Promise<{ success: boolean } | ErrorUI> => {
+  const response = await fetch(new Request(createUrl(`/api/journal/${id}`)), {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    return { error: true, message: 'Error deleting journal entry' }
+  }
+
+  const data = await response.json()
+  return data.data
+}

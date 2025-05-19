@@ -31,3 +31,18 @@ export const PUT = async (req: Request, context: { params: Params }) => {
     analysis,
   })
 }
+
+export const DELETE = async (req: Request, context: { params: Params }) => {
+  const user = await getUserByClerkId()
+  
+  await prisma.journalEntry.delete({
+    where: {
+      userId_id: {
+        userId: user.id,
+        id: context.params.id,
+      },
+    },
+  })
+
+  return NextResponseWrapper({ success: true })
+}
