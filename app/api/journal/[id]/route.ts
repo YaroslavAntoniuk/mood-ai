@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { getUserByClerkId } from '@/utils/auth'
 import { prisma } from '@/utils/db'
 import { NextResponseWrapper } from '@/utils/response-wrapper'
