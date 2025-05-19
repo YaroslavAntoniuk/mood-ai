@@ -27,9 +27,10 @@ export const createNewJournalEntry = async (
 
 export const updateJournalEntry = async (
   id: string,
-  content: string
+  content: string,
+  analyze: boolean
 ): Promise<FullJournalEntry & { usageCount: number } | ErrorUI> => {
-  const response = await fetch(new Request(createUrl(`/api/journal/${id}`)), {
+  const response = await fetch(new Request(createUrl(`/api/journal/${id}?analyze=${analyze}`)), {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

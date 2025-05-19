@@ -46,7 +46,7 @@ const QuestionBar = () => {
         </div>
       </form>
       {loading && <div className="absolute top-0 left-0 w-full h-full bg-white/50 flex justify-center items-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900 z-10"></div>
       </div>}
       {answer && <div className="mt-6 p-6 bg-white rounded-lg">
         <div className="text-lg mb-4"><span className="font-bold">Question:</span> {savedQuestion}</div>

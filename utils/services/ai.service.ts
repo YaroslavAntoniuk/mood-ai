@@ -90,8 +90,8 @@ const mockAnalysis = (): AnalysisDTO => {
   }
 }
 
-export const analyze = async (content: string, isOutOfCredits: boolean = false): Promise<AnalysisDTO> => {
-  if (isOutOfCredits) {
+export const analyze = async (content: string, useMockData: boolean = false): Promise<AnalysisDTO> => {
+  if (useMockData) {
     return mockAnalysis();
   }
 

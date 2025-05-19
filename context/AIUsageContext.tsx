@@ -17,6 +17,10 @@ export const AIUsageProvider = ({ children }: { children: React.ReactNode }) => 
       const response = await fetch('/api/usage')
       const data = await response.json()
       
+      if (!data?.data) {
+        return;
+      }
+
       setUsageCount(data.data.usageCount)
     }
 

@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache'
 
 export const POST = async () => {
   const user = await getUserByClerkId()
-  const isOutOfCredits = user.usageCount >= user.usageLimit
+
   const journalEntry = await prisma.journalEntry.create({
     data: {
       userId: user.id,
@@ -14,20 +14,7 @@ export const POST = async () => {
     },
   })
 
-  await upsertAnalysis(journalEntry, isOutOfCredits)
-
-  if (!isOutOfCredits) {
-    await prisma.user.update({
-      where: {
-        id: user.id,
-      },
-      data: {
-        usageCount: {
-          increment: 1,
-        },
-      },
-    })
-  }
+  await upsertAnalysis(journalEntry, true)
 
   revalidatePath('/journal')
 
